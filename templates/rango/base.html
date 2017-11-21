@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load rango_template_tags %}
+{% load staticfiles %}
+
+<html lang="en" xmlns:категории="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108125430-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-108125430-1');
+    </script>
+
+    <meta charset="UTF-8">
+    <title>[News-Hub - Хаб Новин] Контакти</title>
+{#    <link rel="shortcut icon" href="{% static '/images/favicon.ico' %}"/>#}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <style>
+{#        Верхний блок#}
+        .top_line {
+            display: block;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            color: #FFF;
+            background: #32afed;
+            padding: 2px 15px 0 16px;
+            height: 45px;
+            line-height: 43px;
+            text-align: center;
+        }
+        .top_line:hover,
+        .top_line:active
+        {
+            color: #FFF;
+            background: #32afed;
+            text-decoration: none;
+        }
+        .nav>li {
+            font-weight: bold;
+            display: inline-block;
+            width:initial;
+            float:left;
+            white-space: nowrap;
+            padding: 10px 15px;
+        }
+        .nav {
+          display: inline-block;
+        }
+        .navbar-right {
+            float: right !important;
+        }
+        .footer_left{
+            width: 100%;
+            bottom: 0;
+            position: absolute;
+        }
+        img {
+            width: 100%;
+            margin: 0;
+        }
+        body {
+            font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,Verdana,sans-serif;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar-inner">
+        <div class="container clearfix">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-adminka"><a href="#">Admin</a> </li>
+            </ul>
+            <ul class="nav navbar-nav" style="white-space: nowrap;">
+                <li><a href="{% url 'rango:hindex' %}">Головна</a></li>
+                <li><a href="{% url 'rango:about' %}">Контакти</a></li>
+                <li><a href="{% url 'rango:portal-news' %}">Новини порталу</a></li>
+{#                <li><a href="/rango/main-page">Хаб новин</a></li>#}
+{#                <li><a href="{% url 'rango:nenoy'%}">Не ний</a></li>#}
+            </ul>
+        </div>
+    </div>
+
+    <a class="top_line" href="{% url 'rango:index' %}">
+    ХАБ НОВИН
+    </a>
+    <div>
+        {% block body_block %}
+        {% endblock %}
+    </div>
+    <div class="footer_left">
+        <hr/>
+        <ul>
+{#            <li><a href="{% url 'rango:add_category' %}">Add New Category</a> </li>#}
+            <li><a href="{% url 'rango:about' %}">About</a> </li>
+            <li><a href="{% url 'rango:index' %}">Index</a> </li>
+        </ul>
+    </div>
+    <div class="footer_right">
+{#        {% block sidebar_block %}#}
+{#            {% get_category_list category %}#}
+{#        {% endblock %}#}
+    </div>
+</body>
+</html>

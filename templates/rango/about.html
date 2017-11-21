@@ -1,0 +1,18 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+{% block title_block %}
+    About
+{% endblock %}
+
+{% block body_block %}
+    <div>
+        <h1>Where you can find me:</h1>
+    </div>
+    <div>
+         <ul>
+             <li><a href="{{ linkedin }}"><strong>LinkedIn</strong></a> </li>
+             <li><a href="{{ github }}"><strong>GitHub</strong></a> </li>
+         </ul>
+    </div>
+
+{%  endblock %}

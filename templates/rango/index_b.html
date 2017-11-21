@@ -1,0 +1,104 @@
+<!--
+https://html5book.ru/css-position/
+http://htmlbook.ru/samlayout/blochnaya-verstka/pozitsionirovanie-elementov
+ -->
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rango with Django</title>
+    <style>
+        .page_body {
+            position: initial;
+            padding: 15px;
+        }
+        .top_pages {
+            float: left;
+            border: 2px;
+        }
+        .top_categories {
+            float: right;
+            border: 2px;
+        }
+        .image {
+        }
+        body {
+            margin: 0;
+        }
+        .adm {
+            position: relative;
+            top: 0;
+        }
+        .adm_title {
+            position: relative;
+            left: 0; top: 0;
+            padding: 5px;
+            background: #8ccde2;
+            color: #2B6FB6;
+            width: 100%;
+        }
+        .adm_block {
+            position: absolute;
+            color: #205067;
+            right: 20px; top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="adm">
+
+
+    <div class="adm_title"><h1><i>Pet-project1</i></h1></div>
+    <div class="adm_block">
+        <h2><strong>{{ boldmessage }}
+        <form action="/admin">
+                <input type="submit" value="Admin" />
+        </form>
+        </strong></h2>
+    </div>
+    </div>
+    <div class="page_body">
+
+	
+    <div class="top_pages">
+        Топ страниц:<br/>
+        {% if pages %}
+            <ul>
+                {% for page in pages %}
+                    <li>
+                        <a href="{{ page.url }}">{{ page.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>Нет топовых страниц :(</strong>
+        {% endif %}
+    </div>
+
+    <div class="top_categories">
+        Топ категории:
+        {% if categories %}
+        <ul>
+            {% for category in categories %}
+                <li>
+                    <a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <strong>Нет категорий :(</strong>
+        {% endif %}
+    </div>
+
+    </div>
+
+    <div class="image">
+        <a href="{% url 'rango:about' %}">About</a><br/>
+        <a href="/rango/main-page">Main page</a><br/>
+        <img src="{% static 'images/weather.jpg' %}"
+        alt="Picture"/>
+    </div>
+</body>
+</html>

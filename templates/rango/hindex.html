@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" xmlns:категории="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108125430-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-108125430-1');
+    </script>
+
+    <meta charset="UTF-8">
+    <title>News-Hub - Хаб Новин</title>
+{#    <link rel="shortcut icon" href="{% static '/images/favicon.ico' %}"/>#}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <style>
+
+        .top_container {
+            position: relative;
+            padding-left: 20%;
+            padding-right: 20%;
+        }
+{#        Верхний блок#}
+        .top_line {
+            display: block;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            color: #FFF;
+            background: #32afed;
+            padding: 2px 15px 0 16px;
+            height: 45px;
+            line-height: 43px;
+            text-align: center;
+        }
+        .top_line:hover,
+        .top_line:active
+        {
+            color: #FFF;
+            background: #32afed;
+            text-decoration: none;
+        }
+        .nav>li {
+            font-weight: bold;
+            display: inline-block;
+            width:initial;
+            float:left;
+            white-space: nowrap;
+            padding: 10px 15px;
+        }
+        .nav {
+          display: inline-block;
+        }
+        .navbar-right {
+            float: right !important;
+        }
+{#        Блоки, в которых генерируются КАТЕГОРИИ и СТРАНИЦЫ #}
+         .container-fluid {
+            margin-top: 5%;
+        }
+        .side_blog_title_page {
+            color: #000;
+            font-weight: bold;
+        }
+        .side_blog_title_cat {
+            color: #000;
+            font-weight: bold;
+        }
+        .side_blog_title_page, .side_blog_title_cat {
+            color: #444;
+            font-size: 17px;
+        }
+        .card{
+            box-shadow: 1px 1px 45px 0;
+            background-color: #f3f3f3;
+{#            #d0dce8#}
+        }
+        img {
+            width: 100%;
+            margin: 0;
+        }
+        body {
+            font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,Verdana,sans-serif;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar-inner">
+        <div class="container clearfix">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-adminka"><a href="#">Admin</a> </li>
+            </ul>
+            <ul class="nav navbar-nav" style="white-space: nowrap;">
+                <li><a href="{% url 'rango:hindex' %}">Головна</a></li>
+                <li><a href="{% url 'rango:about' %}">Контакти</a></li>
+                <li><a href="{% url 'rango:portal-news' %}">Новини порталу</a></li>
+{#                <li><a href="/rango/main-page">Хаб новин</a></li>#}
+{#                <li><a href="{% url 'rango:nenoy'%}">Не ний</a></li>#}
+            </ul>
+        </div>
+{#    <div class="adm_title">#}
+{#       #}
+{#    </div>#}
+
+{#        <div class="adm_block">#}
+{#            <h2><strong>{{ boldmessage }}#}
+{#            <form action="/admin">#}
+{#                    <input type="submit" value="Admin" />#}
+{#            </form>#}
+{#            </strong></h2>#}
+{#        </div>#}
+    </div>
+
+    <a class="top_line" href="{% url 'rango:index' %}">
+    ХАБ НОВИН
+    </a>
+
+    <div class="container-fluid" id="top_pages">
+        <div class="slogan" style="padding: 3%"><center><h3 style="font-size: -webkit-xxx-large;"><b>Улюбленi новини в одному мiсцi!</b></h3></center></div>
+        <div class="row">
+            <div class="col-md-4" >
+                <div class="side_blog_wrap" style="text-align: right; border-right:5px solid #32afed; padding: 5px 17px; margin: 0 0 17px 26px;">
+                    <div class="side_blog_title_page">Ресурси:<br/></div>
+                    <div class="side_blog_entries">
+{#                    style="background-color:#99CCFF"#}
+                        {% if pages %}
+                            {% for page in pages %}
+                                    <a href="{{ page.url }}">{{ page.title }}</a><br/>
+                            {% endfor %}
+                        {% else %}
+                            <strong>Нет топовых страниц :(</strong>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+{#  ##################################      #}
+{#        ТУТ ИДУТ ПОСТЫ#}
+{#  ##################################      #}
+
+            <div class="col-md-4" id="posts_area" style="background-color:white; font-size: 14px">
+{#               overflow-x:hidden;  Если будут длинные слова вылазить за рамки #}
+               {% if posts %}
+                   {% for post in posts %}
+                       <div class="card" style="margin-bottom: 5%; padding: 3%; border-color: grey;">
+                       <h4 class="card-title" style="font-size: 2rem;">{{ post.title }}</h4>
+                           {% if post.img|length > 8%}
+                               <img class="card-img-top" src="{{post.img}}" alt="{% static 'images/tverezo-1-small.jpg' %}"/><br/>
+                           {% else %}
+                               <img class="card-img-top" src="{% static 'images/tverezo-1-small.jpg' %}" alt=""/><br/>
+                           {% endif %}
+                           <div class="card-block" style="width: 100%">
+
+{#                                    <a href="{{ post.url }}"><b>{{ post.title }}</b></a><br/> {% static 'images/tverezo-1-small.jpg' %}#}
+                               {% autoescape off %}
+                                   <p class="card-text">{{ post.description }}...</p><br/><br/>
+                               {% endautoescape %}
+
+                           <a target="_blank" href="{{ post.url }}" class="btn btn-primary">Читати</a>
+                           </div>
+                            <br/>
+                            <a href="#" class="btn btn-primary disabled">{{ post.post_date }}</a>
+
+                       </div>
+                   {% endfor %}
+               {% else %}
+                   [NO POSTS]
+               {% endif %}
+
+{#  ##################################      #}
+{#        Pagination#}
+{#  ##################################      #}
+
+                <div class="pagination">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% if posts.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">Попередня</a></li>
+                            {% endif %}
+                            <li class="page-item disabled">
+                              <a class="page-link" href="#" tabindex="-1">Сторiнка {{ posts.number }} з {{ posts.paginator.num_pages }}</a>
+                            </li>
+                            {% if posts.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Наступна</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2" >
+                <div class="side_blog_wrap" style="border-left:5px solid #32afed; position: fixed;
+                                                   padding: 5px 17px; margin: 0 0 17px 26px;">
+                    <div class="side_blog_title_page">Фiльтри:<br/></div>
+                    <div class="side_blog_entries">
+                        <a href="{% url 'rango:filter-news24' %}">News24</a><br/>
+                        <a href="{% url 'rango:filter-tverezo' %}">Tverezo</a><br/>
+                        <a href="{% url 'rango:filter-informn' %}">InformNapalm</a><br/><br/>
+                        <a href="{% url 'rango:hindex' %}">Усi</a><br/>
+                    </div>
+                </div>
+                <div class="side_blog_bottom" style="position: fixed; bottom: 20px;right: 28%;">
+                    <a href="#"><b>^</b></a>
+                </div>
+            </div>
+
+{#           <div class="col-md-4" id="top_categorys" >#}
+{#           style="background-color:#99CCFF"#}
+{#               <div class="side_blog_wrap" style="border-left:5px solid #32afed; padding: 5px 17px; margin: 0 0 17px 26px;">#}
+{#                    <div class="side_blog_title_cat">Топ категории:<br/></div>#}
+{#                    <div class="side_blog_entries">#}
+{#                    style="background-color:#99CCFF"#}
+{#                        {% if categories %}#}
+{#                            {% for category in categories %}#}
+{#                                <a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a><br/>#}
+{#                            {% endfor %}#}
+{#                        {% else %}#}
+{#                            <strong>Нет категорий :(</strong>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{##}
+           </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

@@ -1,0 +1,134 @@
+<!--
+https://html5book.ru/css-position/
+http://htmlbook.ru/samlayout/blochnaya-verstka/pozitsionirovanie-elementov
+ -->
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108125430-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-108125430-1');
+    </script>
+    <meta charset="UTF-8">
+    <title>Rango with Django</title>
+    <style>
+        .top_container {
+            position: relative;
+            padding-left: 20%;
+            padding-right: 20%;
+            background: #d4cfb6;
+{#            top: 0;#}
+        }
+        .top_container_center {
+            position: relative;
+            width: 100%;
+            background: #8ccde2;
+        }
+        .adm_title {
+            position: relative;
+            left: 0; top: 0;
+            padding: 5px;
+            background: #8ccde2;
+            color: #2B6FB6;
+{#            width: 100%;#}
+        }
+        .adm_block {
+            position: absolute;
+            color: #205067;
+            right: 20px; top: 0;
+        }
+        .page_body {
+            position: initial;
+            padding: 15px;
+        }
+        .top_pages {
+            float: left;
+            border: 2px;
+        }
+        .top_categories {
+            float: right;
+            border: 2px;
+        }
+        .body_bgrnd_container {
+            padding-left: 20%;
+            padding-right: 20%;
+        }
+        body {
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="top_container">
+        <div class="top_container_center">
+            <a href="{% url 'rango:index' %}"><h1>Pet-project1</h1></a>
+            <a href="{% url 'rango:about' %}">About</a>&ensp;
+            <a href="/rango/main-page">Main page</a>&ensp;
+            <a href="{% url 'rango:nenoy'%}">Не ний</a>&ensp;
+            <a href="{% url 'rango:hindex'%}">Будущая главная страница</a>&ensp;
+        </div>
+{#    <div class="adm_title">#}
+{#       #}
+{#    </div>#}
+
+    <div class="adm_block">
+        <h2><strong>{{ boldmessage }}
+        <form action="/admin">
+                <input type="submit" value="Admin" />
+        </form>
+        </strong></h2>
+    </div>
+    </div>
+    <div class="body_bgrnd_container">
+
+
+
+    </div>
+    <div class="page_body">
+    <div class="top_pages">
+        Топ страниц:<br/>
+        {% if pages %}
+            <ul>
+                {% for page in pages %}
+                    <li>
+                        <a href="{{ page.url }}">{{ page.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>Нет топовых страниц :(</strong>
+        {% endif %}
+    </div>
+
+    <div class="top_categories">
+        Топ категории:
+        {% if categories %}
+        <ul>
+            {% for category in categories %}
+                <li>
+                    <a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <strong>Нет категорий :(</strong>
+        {% endif %}
+    </div>
+
+    </div>
+
+    <div class="image">
+        <a href="{% url 'rango:about' %}">About</a><br/>
+        <a href="/rango/main-page">Main page</a><br/>
+        <img src="{% static 'images/weather.jpg' %}"
+        alt="Picture"/>
+    </div>
+</body>
+</html>
